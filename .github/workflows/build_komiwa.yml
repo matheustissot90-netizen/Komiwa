@@ -1,0 +1,34 @@
+name: Build Komiwa
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/es/komiwa/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: 17
+          distribution: temurin
+
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build Komiwa (debug)
+        run: |
+          chmod +x ./gradlew
+          ./gradlew :src:es:komiwa:assembleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: komiwa-apk
+          path: src/es/komiwa/build/outputs/apk/debug/*.apk
