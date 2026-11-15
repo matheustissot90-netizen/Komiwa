@@ -9,4 +9,9 @@ keiyoushi {
     versionCode = 1
     contentWarning = ContentWarning.NSFW
     libVersion = "1.6"
+
+    source {
+        lang = "es"
+        baseUrl = "https://www.komiwa.net"
+    }
 }
